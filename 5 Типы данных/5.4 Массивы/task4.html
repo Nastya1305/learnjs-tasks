@@ -1,0 +1,41 @@
+<!-- Напишите функцию sumInput(), которая:
+
+Просит пользователя ввести значения, используя prompt и сохраняет их в массив.
+Заканчивает запрашивать значения, когда пользователь введёт не числовое значение, пустую строку или нажмёт «Отмена».
+Подсчитывает и возвращает сумму элементов массива.
+P.S. Ноль 0 – считается числом, не останавливайте ввод значений при вводе «0». -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+   <script>
+      "use strict";
+
+      function sumInput() {
+         let arr = [];
+         let value;
+
+         while (true) {
+            value = +prompt("Введите число", "");
+
+            if (isNaN(value) || value == "") break;
+
+            arr.push(value);
+         }
+
+         alert(arr.reduce((prev, item) => item + prev, 0));
+      }
+
+      sumInput();
+   </script>
+</body>
+
+</html>
