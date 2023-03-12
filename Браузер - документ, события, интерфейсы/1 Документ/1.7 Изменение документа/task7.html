@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <style>
+      table {
+         border-collapse: collapse;
+      }
+
+      td,
+      th {
+         border: 1px solid black;
+         padding: 3px;
+         text-align: center;
+      }
+
+      th {
+         font-weight: bold;
+         background-color: #E6E6E6;
+      }
+   </style>
+</head>
+
+<body>
+   <!-- Напишите функцию createCalendar(elem, year, month).
+   Вызов функции должен создать календарь для заданного месяца month в году year и вставить его в elem.
+
+   Календарь должен быть таблицей, где неделя – это <tr>, а день – это <td>. У таблицы должен быть заголовок с
+   названиями дней недели, каждый день –
+   <th>, первым днём недели должен быть понедельник. -->
+
+   <div id="calendar"></div>
+
+   <script>
+
+      function getLocalDay(date) {
+         let day = date.getDay();
+         return day == 0 ? 7 : day;
+      }
+
+      function createCalendar(elem, year, month) {
+         let table = document.createElement('table');
+         table.innerHTML = "<tr> <th>пн</th> <th>вт</th> <th>ср</th>" +
+            "<th>чт</th> <th>пт</th> <th>сб</th> <th>вс</th> </tr>";
+         elem.append(table);
+
+         let firstDay = new Date(year, month - 1);
+         let lastDay = new Date(year, month, 0);
+         let curDay = 1;
+
+         while (curDay <= lastDay.getDate()) {
+            let tr = document.createElement('tr');
+            table.append(tr);
+
+            for (let dayOfTheWeek = 1; dayOfTheWeek <= 7; dayOfTheWeek++) {
+               let td = document.createElement('td');
+               tr.append(td);
+
+               if (tr.rowIndex == 1) {
+
+                  if (dayOfTheWeek >= getLocalDay(firstDay)) {
+                     td.textContent = curDay;
+                     curDay++;
+                  }
+
+               } else {
+                  if (curDay <= lastDay.getDate()) {
+                     td.textContent = curDay;
+                     curDay++;
+                  }
+               }
+            }
+         }
+      }
+
+      createCalendar(calendar, 2023, 3);
+   </script>
+</body>
+
+</html>

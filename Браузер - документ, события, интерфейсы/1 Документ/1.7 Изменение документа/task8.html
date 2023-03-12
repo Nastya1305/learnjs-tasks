@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+
+<body>
+   <div id="clock">
+      <span id="hours" style="color: red;">hh</span>:<span id="minutes" style="color: green;">mm</span>:<span
+         id="seconds" style="color: blue;">ss</span>
+   </div>
+
+   <!-- клик по этой кнопке вызовет clockStart() -->
+   <input type="button" onclick="clockStart()" value="Старт">
+
+   <!-- клик по этой кнопке вызовет clockStop() -->
+   <input type="button" onclick="clockStop()" value="Стоп">
+
+   <script>
+
+      function formatTime(time) {
+         return time < 10 ? "0" + time : time;
+      }
+
+      function setTime(hh, mm, ss) {
+         hours.textContent = formatTime(hh);
+         minutes.textContent = formatTime(mm);
+         seconds.textContent = formatTime(ss);
+      }
+
+      let timerId;
+
+      function clockStart() {
+         timerId = setInterval(updateTime, 1000);
+         updateTime();
+      }
+
+      function clockStop() {
+         clearInterval(timerId);
+         timerId = null;
+      }
+
+      function updateTime() {
+         let now = new Date();
+         setTime(now.getHours(), now.getMinutes(), now.getSeconds());
+      }
+   </script>
+
+</body>
+
+</html>

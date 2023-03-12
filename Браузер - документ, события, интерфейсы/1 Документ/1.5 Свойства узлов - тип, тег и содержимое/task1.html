@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+
+<body>
+
+  <ul>
+    <li>Животные
+      <ul>
+        <li>Млекопитающие
+          <ul>
+            <li>Коровы</li>
+            <li>Ослы</li>
+            <li>Собаки</li>
+            <li>Тигры</li>
+          </ul>
+        </li>
+        <li>Другие
+          <ul>
+            <li>Змеи</li>
+            <li>Птицы</li>
+            <li>Ящерицы</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Рыбы
+      <ul>
+        <li>Аквариумные
+          <ul>
+            <li>Гуппи</li>
+            <li>Рыба-ангел</li>
+          </ul>
+        </li>
+        <li>Морские
+          <ul>
+            <li>Морская форель</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <script>
+    // Напишите код, который выведет каждый элемент списка < li >:
+    // Какой в нём текст(без поддерева) ?
+    // Какое число потомков – всех вложенных < li > (включая глубоко вложенные) ?
+
+    let listItems = document.querySelectorAll("li");
+
+    for (let li of listItems) {
+      console.log(li.firstChild.data.trim() + " " + li.querySelectorAll("li").length);
+    }
+
+  </script>
+
+</body>
+
+</html>
