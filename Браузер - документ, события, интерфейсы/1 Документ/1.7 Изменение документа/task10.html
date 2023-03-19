@@ -40,7 +40,7 @@
       // Напишите код для сортировки строк таблицы по столбцу "name".
       let tbody = document.querySelector("tbody");
       let rows = Array.from(tbody.rows);
-      rows.sort((first, second) => first.cells[1].textContent > first.cells[1].textContent ? 1 : -1);
+      rows.sort((first, second) => first.cells[0].textContent > second.cells[0].textContent ? 1 : -1);
       tbody.append(...rows);
    </script>
 </body>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8">
+   <link rel="stylesheet" href="task1.css">
+</head>
+
+<body>
+
+   <h2>Кликните на кнопку ниже</h2>
+   <input type="button" value="Кликните, чтобы увидеть форму" id="show-button">
+
+   <div class="overlay" hidden>
+      <div id="prompt-form-container">
+         <form id="prompt-form">
+            <div id="prompt-message">Введите что-нибудь...
+               <br>Пожалуйста..
+            </div>
+            <input name="text" type="text">
+            <input type="submit" value="Ok">
+            <input type="button" name="cancel" value="Отмена">
+         </form>
+      </div>
+   </div>
+
+
+   <script>
+      // Создайте функцию showPrompt(html, callback), 
+      // которая выводит форму с сообщением (html), полем ввода и кнопками OK/ОТМЕНА.
+
+      // Пользователь должен ввести что-то в текстовое поле и нажать Enter или кнопку «OK»,
+      // после чего должна вызываться функция callback(value) со значением поля.
+      // Если пользователь нажимает Esc или кнопку «ОТМЕНА», тогда вызывается callback(null).
+      // В обоих случаях нужно завершить процесс ввода и закрыть диалоговое окно с формой.
+
+      // Требования:
+
+      //    Форма должна быть в центре окна.
+      //    Форма является модальным окном, это значит, что никакое взаимодействие
+      // с остальной частью страницы невозможно, пока пользователь не закроет его.
+      //    При показе формы, фокус должен находиться сразу внутри <input>.
+      //    Клавиши Tab/Shift+Tab должны переключать фокус между полями формы,
+      // не позволяя ему переходить к другим элементам страницы.
+
+      let showBtn = document.body.querySelector('#show-button');
+
+      function showPrompt(html, callback) {
+         let overlay = document.body.querySelector('.overlay');
+         let form = document.forms[0];
+         let message = document.body.querySelector('#prompt-message');
+
+         overlay.hidden = false;
+         document.body.style.overflowY = 'hidden';
+
+         message.innerHTML = html;
+
+         form.text.focus();
+
+         function complete(value) {
+            overlay.hidden = true;
+            document.body.style.overflowY = '';
+            document.onkeydown = null;
+            callback(value);
+         }
+
+         form.onsubmit = function () {
+            let value = form.text.value;
+            if (value == '') return false;
+
+            complete(value);
+            return false;
+         };
+
+         form.cancel.onclick = function () {
+            form.text.value = '';
+            complete(null);
+         };
+
+         document.onkeydown = function (e) {
+            if (e.key == 'Escape') {
+               form.text.value = '';
+               complete(null);
+            }
+         };
+
+         let lastElem = form.elements[form.elements.length - 1];
+         let firstElem = form.elements[0];
+
+         lastElem.onkeydown = function (e) {
+            if (e.key == 'Tab' && !e.shiftKey) {
+               firstElem.focus();
+               return false;
+            }
+         };
+
+         firstElem.onkeydown = function (e) {
+            if (e.key == 'Tab' && e.shiftKey) {
+               lastElem.focus();
+               return false;
+            }
+         };
+      }
+
+      showBtn.onclick = function () {
+         showPrompt("!Введите что-нибудь<br>...умное :)", function (value) {
+            alert("Вы ввели: " + value);
+         });
+      };
+
+   </script>
+
+</body>
+
+</html>

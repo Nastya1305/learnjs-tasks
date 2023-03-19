@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+   <meta charset="utf-8">
+   <style>
+      table {
+         border-collapse: collapse;
+      }
+
+      th,
+      td {
+         border: 1px solid black;
+         padding: 4px;
+      }
+
+      th {
+         cursor: pointer;
+      }
+
+      th:hover {
+         background: yellow;
+      }
+   </style>
+</head>
+
+<body>
+
+   <table id="grid">
+      <thead>
+         <tr>
+            <th data-type="number">Возраст</th>
+            <th data-type="string">Имя</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <td>5</td>
+            <td>Вася</td>
+         </tr>
+         <tr>
+            <td>2</td>
+            <td>Петя</td>
+         </tr>
+         <tr>
+            <td>12</td>
+            <td>Женя</td>
+         </tr>
+         <tr>
+            <td>9</td>
+            <td>Маша</td>
+         </tr>
+         <tr>
+            <td>1</td>
+            <td>Илья</td>
+         </tr>
+      </tbody>
+   </table>
+
+   <script>
+      // Сделать таблицу сортируемой: при клике на элемент <th> строки таблицы 
+      // должны сортироваться по соответствующему столбцу.
+      let tbody = document.querySelector("tbody");
+      let rows = Array.from(tbody.rows);
+
+      grid.onclick = function (event) {
+         let type = event.target.dataset.type;
+         if (!type) {
+            return;
+         }
+
+         let column = event.target.cellIndex;
+
+         switch (type) {
+            case 'string':
+               rows.sort((first, second) => first.cells[column].textContent > second.cells[column].textContent ? 1 : -1);
+               break;
+
+            case 'number':
+               rows.sort((first, second) => +first.cells[column].textContent - +second.cells[column].textContent);
+               break;
+         }
+
+         tbody.append(...rows);
+      };
+
+   </script>
+
+</body>
+
+</html>
